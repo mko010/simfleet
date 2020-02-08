@@ -8,6 +8,7 @@ from spade.agent import Agent
 from spade.behaviour import CyclicBehaviour
 from spade.template import Template
 from urllib3 import Retry
+import random
 
 
 class RouteAgent(Agent):
@@ -89,6 +90,10 @@ class RouteAgent(Agent):
         try:
             url = "http://osrm.gti-ia.upv.es/route/v1/car/{src1},{src2};{dest1},{dest2}?geometries=geojson&overview=full"
             src1, src2, dest1, dest2 = origin[1], origin[0], destination[1], destination[0]
+            if random.randrange(2):
+                dest1 += 0.00045
+                dest2 += 0.00045
+
             url = url.format(src1=src1, src2=src2, dest1=dest1, dest2=dest2)
 
             session = requests.Session()

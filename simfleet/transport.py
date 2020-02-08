@@ -62,6 +62,7 @@ class TransportAgent(Agent):
         self.num_charges = 0
         self.set("current_station", None)
         self.current_station_dest = None
+        self.trust = 0
 
     async def setup(self):
         try:

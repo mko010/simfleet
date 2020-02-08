@@ -155,6 +155,13 @@ class CustomerAgent(Agent):
         """
         return self.status == CUSTOMER_IN_DEST or self.get_position() == self.dest
 
+    def rate(self):
+        if self.is_in_destination():
+            if self.dest != self.get_position():
+                self.transport_assigned.trust -= 1
+            else:
+                self.transport_assigned.trust += 1 
+
     async def request_path(self, origin, destination):
         """
         Requests a path between two points (origin and destination) using the RouteAgent service.

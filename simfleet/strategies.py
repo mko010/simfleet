@@ -86,7 +86,7 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
                         await self.cancel_proposal(content["customer_id"])
                         self.agent.status = TRANSPORT_NEEDS_CHARGING
                     else:
-                        await self.send_proposal(content["customer_id"], {})
+                        await self.send_proposal(content["customer_id"], self.agent.trust)
                         self.agent.status = TRANSPORT_WAITING_FOR_APPROVAL
 
             elif performative == ACCEPT_PERFORMATIVE:
@@ -96,6 +96,8 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
                     try:
                         self.agent.status = TRANSPORT_MOVING_TO_CUSTOMER
                         await self.pick_up_customer(content["customer_id"], content["origin"], content["dest"])
+                        customer_id = content["customer_id"]
+                        # Aquí el cliente puntua al taxi en función de su destino
                     except PathRequestException:
                         logger.error("Transport {} could not get a path to customer {}. Cancelling..."
                                      .format(self.agent.name, content["customer_id"]))
@@ -159,7 +161,7 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
                     self.agent.fleetmanagers = json.loads(msg.body)
                     return
                 elif performative == CANCEL_PERFORMATIVE:
-                    logger.info("Cancellation of request for {} information".format(self.agent.type_service))
+                    logger.error("Cancellation of request for {} information".format(self.agent.type_service))
                     return
 
         if self.agent.status == CUSTOMER_WAITING:
@@ -172,10 +174,13 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
             transport_id = msg.sender
             if performative == PROPOSE_PERFORMATIVE:
                 if self.agent.status == CUSTOMER_WAITING:
-                    logger.debug(
-                        "Customer {} received proposal from transport {}".format(self.agent.name, transport_id))
-                    await self.accept_transport(transport_id)
-                    self.agent.status = CUSTOMER_ASSIGNED
+                    logger.info(
+                        "Customer {} received proposal from transport {} with trust = {}".format(self.agent.name, transport_id, msg.body))
+                    if int(msg.body) > -5:
+                        await self.accept_transport(transport_id)
+                        self.agent.status = CUSTOMER_ASSIGNED
+                    else:
+                        await self.refuse_transport(transport_id)
                 else:
                     await self.refuse_transport(transport_id)
 
