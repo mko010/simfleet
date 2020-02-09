@@ -2,7 +2,6 @@ import json
 import random
 
 from loguru import logger
-
 from .customer import CustomerStrategyBehaviour
 from .fleetmanager import FleetManagerStrategyBehaviour
 from .helpers import PathRequestException
@@ -11,7 +10,7 @@ from .protocol import REQUEST_PERFORMATIVE, ACCEPT_PERFORMATIVE, REFUSE_PERFORMA
 from .transport import TransportStrategyBehaviour
 from .utils import TRANSPORT_WAITING, TRANSPORT_WAITING_FOR_APPROVAL, CUSTOMER_WAITING, TRANSPORT_MOVING_TO_CUSTOMER, \
     CUSTOMER_ASSIGNED, TRANSPORT_WAITING_FOR_STATION_APPROVAL, TRANSPORT_MOVING_TO_STATION, \
-    TRANSPORT_CHARGING, TRANSPORT_CHARGED, TRANSPORT_NEEDS_CHARGING
+    TRANSPORT_CHARGING, TRANSPORT_CHARGED, TRANSPORT_NEEDS_CHARGING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_DESTINATION
 
 
 ################################################################
@@ -34,6 +33,7 @@ class DelegateRequestBehaviour(FleetManagerStrategyBehaviour):
             for transport in self.get_transport_agents().values():
                 msg.to = str(transport["jid"])
                 logger.debug("Manager sent request to transport {}".format(transport["name"]))
+                print(transport)
                 await self.send(msg)
 
 
@@ -96,8 +96,6 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
                     try:
                         self.agent.status = TRANSPORT_MOVING_TO_CUSTOMER
                         await self.pick_up_customer(content["customer_id"], content["origin"], content["dest"])
-                        customer_id = content["customer_id"]
-                        # Aquí el cliente puntua al taxi en función de su destino
                     except PathRequestException:
                         logger.error("Transport {} could not get a path to customer {}. Cancelling..."
                                      .format(self.agent.name, content["customer_id"]))
@@ -107,8 +105,11 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
                         logger.error("Unexpected error in transport {}: {}".format(self.agent.name, e))
                         await self.cancel_proposal(content["customer_id"])
                         self.agent.status = TRANSPORT_WAITING
+  
                 else:
                     await self.cancel_proposal(content["customer_id"])
+                    if self.agent.status == TRANSPORT_MOVING_TO_DESTINATION:
+                        print(self.agent.trust)
 
             elif performative == REFUSE_PERFORMATIVE:
                 logger.debug("Transport {} got refusal from customer/station".format(self.agent.name))
@@ -166,9 +167,11 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
 
         if self.agent.status == CUSTOMER_WAITING:
             await self.send_request(content={})
+        
 
         msg = await self.receive(timeout=5)
 
+        transport_id = None
         if msg:
             performative = msg.get_metadata("performative")
             transport_id = msg.sender
@@ -189,3 +192,7 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
                     logger.warning(
                         "Customer {} received a CANCEL from Transport {}.".format(self.agent.name, transport_id))
                     self.agent.status = CUSTOMER_WAITING
+        
+        if self.agent.status == CUSTOMER_IN_DEST:
+            await self.rate_transport(transport_id)
+

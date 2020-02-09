@@ -10,7 +10,7 @@ from spade.template import Template
 
 from .helpers import random_position
 from .protocol import REQUEST_PROTOCOL, TRAVEL_PROTOCOL, REQUEST_PERFORMATIVE, ACCEPT_PERFORMATIVE, REFUSE_PERFORMATIVE, \
-    QUERY_PROTOCOL
+    QUERY_PROTOCOL, TRAVEL_PROTOCOL, INFORM_PERFORMATIVE
 from .utils import CUSTOMER_WAITING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_CUSTOMER, CUSTOMER_IN_TRANSPORT, \
     TRANSPORT_IN_CUSTOMER_PLACE, CUSTOMER_LOCATION, StrategyBehaviour, request_path, status_to_str
 
@@ -158,9 +158,11 @@ class CustomerAgent(Agent):
     def rate(self):
         if self.is_in_destination():
             if self.dest != self.get_position():
-                self.transport_assigned.trust -= 1
+                # self.transport_assigned.trust -= 1
+                return -1
             else:
-                self.transport_assigned.trust += 1 
+                # self.transport_assigned.trust += 1
+                return 1
 
     async def request_path(self, origin, destination):
         """
@@ -377,6 +379,21 @@ class CustomerStrategyBehaviour(StrategyBehaviour):
         await self.send(reply)
         self.agent.transport_assigned = str(transport_id)
         logger.info("Customer {} accepted proposal from transport {}".format(self.agent.name, transport_id))
+    
+    async def rate_transport(self, transport_id):
+        reply = Message()
+        reply.to = str(transport_id)
+        reply.set_metadata('protocol', TRAVEL_PROTOCOL)
+        reply.set_metadata('performative', INFORM_PERFORMATIVE)
+        rate = self.agent.rate()
+        content = {
+            'customer_id': str(self.agent.jid),
+            'rate': rate
+        }
+        reply.body = json.dumps(content)
+        await self.send(reply)
+        self.agent.transport_assigned = str(transport_id)
+        logger.info('Customer {} rate the taxi with {}'.format(self.agent.name, rate))
 
     async def refuse_transport(self, transport_id):
         """

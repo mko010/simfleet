@@ -62,7 +62,7 @@ class TransportAgent(Agent):
         self.num_charges = 0
         self.set("current_station", None)
         self.current_station_dest = None
-        self.trust = 0
+        self.trust = None
 
     async def setup(self):
         try:
@@ -86,6 +86,7 @@ class TransportAgent(Agent):
         if content is not None:
             self.icon = content["icon"] if self.icon is None else self.icon
             self.fleet_type = content["fleet_type"]
+            self.trust = content["trust"]
         self.registration = status
 
     def set_directory(self, directory_id):
@@ -155,6 +156,12 @@ class TransportAgent(Agent):
 
         """
         self.route_id = route_id
+    
+    def set_trust(self, trust):
+        self.trust = trust
+
+    def get_trust(self):
+        return self.trust
 
     async def send(self, msg):
         if not msg.sender:
@@ -473,7 +480,8 @@ class TransportAgent(Agent):
             "max_autonomy": self.max_autonomy_km,
             "service": self.fleet_type,
             "fleet": self.fleetmanager_id.split("@")[0],
-            "icon": self.icon
+            "icon": self.icon,
+            "trust": self.trust
         }
 
     class MovingBehaviour(PeriodicBehaviour):
@@ -505,7 +513,8 @@ class RegistrationBehaviour(CyclicBehaviour):
         content = {
             "name": self.agent.name,
             "jid": str(self.agent.jid),
-            "fleet_type": self.agent.fleet_type
+            "fleet_type": self.agent.fleet_type,
+            "trust": self.agent.trust
         }
         msg = Message()
         msg.to = str(self.agent.fleetmanager_id)

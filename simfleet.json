@@ -23,7 +23,8 @@
             "fleet_type": "drone",
             "position": [40.41192762537371, -3.7105464935302734],
             "password": "secret",
-            "name": "drone1"
+            "name": "drone1",
+            "trust": 0
         },
         {
             "speed": 2000,
@@ -31,7 +32,8 @@
             "fleet_type": "drone",
             "position": [40.428655600133546,-3.6993885040283203],
             "password": "secret",
-            "name": "drone2"
+            "name": "drone2",
+            "trust": 0
         },
         {
             "speed": 2000,
@@ -39,7 +41,8 @@
             "fleet_type": "drone",
             "position": [40.446424515534666, -3.6612796783447266],
             "password": "secret",
-            "name": "drone3"
+            "name": "drone3",
+            "trust": 0
         },
         {
             "speed": 2000,
@@ -47,7 +50,8 @@
             "fleet_type": "food_delivery",
             "position": [40.44635919724081,-3.69140625],
             "password": "secret",
-            "name": "bike1"
+            "name": "bike1",
+            "trust": 0
         },
         {
             "speed": 2000,
@@ -55,7 +59,8 @@
             "fleet_type": "food_delivery",
             "position": [40.42035747630869,-3.665142059326172],
             "password": "secret",
-            "name": "bike2"
+            "name": "bike2",
+            "trust": 0
         }
     ],
     "customers": [
