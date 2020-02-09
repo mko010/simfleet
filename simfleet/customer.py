@@ -7,6 +7,7 @@ from spade.agent import Agent
 from spade.behaviour import CyclicBehaviour
 from spade.message import Message
 from spade.template import Template
+import random
 
 from .helpers import random_position
 from .protocol import REQUEST_PROTOCOL, TRAVEL_PROTOCOL, REQUEST_PERFORMATIVE, ACCEPT_PERFORMATIVE, REFUSE_PERFORMATIVE, \
@@ -28,6 +29,7 @@ class CustomerAgent(Agent):
         self.status = CUSTOMER_WAITING
         self.current_pos = None
         self.dest = None
+        self.dest_ori = None
         self.port = None
         self.transport_assigned = None
         self.init_time = None
@@ -142,6 +144,11 @@ class CustomerAgent(Agent):
         """
         if coords:
             self.dest = coords
+            self.dest_ori = coords
+            s = [True, False]
+            if random.choice(s):
+                self.dest[0] += 0.045
+                self.dest[1] += 0.045
         else:
             self.dest = random_position()
         logger.debug("Customer {} target position is {}".format(self.agent_id, self.dest))
@@ -156,13 +163,10 @@ class CustomerAgent(Agent):
         return self.status == CUSTOMER_IN_DEST or self.get_position() == self.dest
 
     def rate(self):
-        if self.is_in_destination():
-            if self.dest != self.get_position():
-                # self.transport_assigned.trust -= 1
-                return -1
-            else:
-                # self.transport_assigned.trust += 1
-                return 1
+        if self.dest != self.dest_ori:
+            return -1
+        else:
+            return 1
 
     async def request_path(self, origin, destination):
         """

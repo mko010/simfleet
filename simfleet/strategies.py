@@ -33,7 +33,6 @@ class DelegateRequestBehaviour(FleetManagerStrategyBehaviour):
             for transport in self.get_transport_agents().values():
                 msg.to = str(transport["jid"])
                 logger.debug("Manager sent request to transport {}".format(transport["name"]))
-                print(transport)
                 await self.send(msg)
 
 
