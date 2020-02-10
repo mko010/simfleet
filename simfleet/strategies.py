@@ -6,12 +6,11 @@ from .customer import CustomerStrategyBehaviour
 from .fleetmanager import FleetManagerStrategyBehaviour
 from .helpers import PathRequestException
 from .protocol import REQUEST_PERFORMATIVE, ACCEPT_PERFORMATIVE, REFUSE_PERFORMATIVE, PROPOSE_PERFORMATIVE, \
-    CANCEL_PERFORMATIVE, INFORM_PERFORMATIVE, QUERY_PROTOCOL, REQUEST_PROTOCOL
+    CANCEL_PERFORMATIVE, INFORM_PERFORMATIVE, QUERY_PROTOCOL, REQUEST_PROTOCOL, TRAVEL_PROTOCOL, RATE_PERFORMATIVE, RATE_PROTOCOL
 from .transport import TransportStrategyBehaviour
 from .utils import TRANSPORT_WAITING, TRANSPORT_WAITING_FOR_APPROVAL, CUSTOMER_WAITING, TRANSPORT_MOVING_TO_CUSTOMER, \
     CUSTOMER_ASSIGNED, TRANSPORT_WAITING_FOR_STATION_APPROVAL, TRANSPORT_MOVING_TO_STATION, \
-    TRANSPORT_CHARGING, TRANSPORT_CHARGED, TRANSPORT_NEEDS_CHARGING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_DESTINATION
-
+    TRANSPORT_CHARGING, TRANSPORT_CHARGED, TRANSPORT_NEEDS_CHARGING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_DESTINATION, CUSTOMER_IN_TRANSPORT
 
 ################################################################
 #                                                              #
@@ -69,12 +68,18 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
         performative = msg.get_metadata("performative")
         protocol = msg.get_metadata("protocol")
 
+        if protocol == RATE_PROTOCOL:
+            if performative == RATE_PERFORMATIVE:
+                rate = msg.body['rate']
+                self.agent.set_trust(rate)
+
         if protocol == QUERY_PROTOCOL:
             if performative == INFORM_PERFORMATIVE:
                 self.agent.stations = content
                 logger.info("Got list of current stations: {}".format(list(self.agent.stations.keys())))
             elif performative == CANCEL_PERFORMATIVE:
                 logger.info("Cancellation of request for stations information.")
+        
 
         elif protocol == REQUEST_PROTOCOL:
             logger.debug("Transport {} received request protocol from customer/station.".format(self.agent.name))
@@ -107,8 +112,6 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
   
                 else:
                     await self.cancel_proposal(content["customer_id"])
-                    if self.agent.status == TRANSPORT_MOVING_TO_DESTINATION:
-                        print(self.agent.trust)
 
             elif performative == REFUSE_PERFORMATIVE:
                 logger.debug("Transport {} got refusal from customer/station".format(self.agent.name))
@@ -136,6 +139,7 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
                         self.agent.transport_charged()
                         await self.agent.drop_station()
 
+
             elif performative == CANCEL_PERFORMATIVE:
                 logger.info("Cancellation of request for {} information".format(self.agent.fleet_type))
 
@@ -149,7 +153,8 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
     """
     The default strategy for the Customer agent. By default it accepts the first proposal it receives.
     """
-
+    global l 
+    l = []
     async def run(self):
         if self.agent.fleetmanagers is None:
             await self.send_get_managers(self.agent.fleet_type)
@@ -170,7 +175,6 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
 
         msg = await self.receive(timeout=5)
 
-        transport_id = None
         if msg:
             performative = msg.get_metadata("performative")
             transport_id = msg.sender
@@ -191,7 +195,16 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
                     logger.warning(
                         "Customer {} received a CANCEL from Transport {}.".format(self.agent.name, transport_id))
                     self.agent.status = CUSTOMER_WAITING
+
         
+        if self.agent.status == CUSTOMER_IN_TRANSPORT:
+            l.append([self.agent.name, self.agent.transport_assigned])
         if self.agent.status == CUSTOMER_IN_DEST:
-            await self.rate_transport(transport_id)
+            print(l)
+            transport = None
+            for cus in l:
+                if self.agent.name in cus:
+                    transport = cus[1]
+            # l.remove([self.agent.name, transport])                
+            await self.rate_transport(transport)
 

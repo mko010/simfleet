@@ -86,7 +86,6 @@ class TransportAgent(Agent):
         if content is not None:
             self.icon = content["icon"] if self.icon is None else self.icon
             self.fleet_type = content["fleet_type"]
-            # self.trust = content["trust"]
         self.registration = status
 
     def set_directory(self, directory_id):
