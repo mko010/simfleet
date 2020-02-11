@@ -147,8 +147,9 @@ class CustomerAgent(Agent):
             self.dest_ori = coords
             s = [True, False]
             if random.choice(s):
-                self.dest[0] += 0.045
-                self.dest[1] += 0.045
+                self.dest[0] += 0.0000045
+                self.dest[1] += 0.0000045
+                print(self.dest == self.dest_ori)
         else:
             self.dest = random_position()
         logger.debug("Customer {} target position is {}".format(self.agent_id, self.dest))
@@ -387,7 +388,7 @@ class CustomerStrategyBehaviour(StrategyBehaviour):
     async def rate_transport(self, transport_id):
         reply = Message()
         reply.to = str(transport_id)
-        reply.set_metadata('protocol', RATE_PROTOCOL)
+        # reply.set_metadata('protocol', TRAVEL_PROTOCOL)
         reply.set_metadata('performative', RATE_PERFORMATIVE)
         rate = self.agent.rate()
         content = {

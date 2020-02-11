@@ -261,6 +261,8 @@ class SimulatorAgent(Agent):
         self.stop_agents()
 
         self.print_stats()
+        
+        self.write_json('res.json')
 
         return super().stop()
 
@@ -760,16 +762,25 @@ class SimulatorAgent(Agent):
             ``pandas.DataFrame``: the dataframe with the transports stats.
         """
         try:
-            names, assignments, distances, statuses = zip(*[(t.name, t.num_assignments,
+            names, assignments, distances, statuses, trusts, passwords, ids, types = zip(*[(t.name, t.num_assignments,
                                                              "{0:.2f}".format(sum(t.distances)),
-                                                             status_to_str(t.status))
+                                                             status_to_str(t.status),
+                                                             t.trust,
+                                                             t.password, 
+                                                             t.agent_id + "@localhost",
+                                                             t.fleet_type)
                                                             for t in self.transport_agents.values()])
         except ValueError:
-            names, assignments, distances, statuses = [], [], [], []
+            names, assignments, distances, statuses, trusts, passwords, ids, types = [], [], [], [], [], [], [], []
         df = pd.DataFrame.from_dict({"name": names,
                                      "assignments": assignments,
                                      "distance": distances,
-                                     "status": statuses})
+                                     "status": statuses,
+                                     "trust": trusts,
+                                     "password": passwords,
+                                     "fleet": ids,
+                                     "type": types
+                                     })
         return df
 
     def get_station_stats(self):
@@ -803,7 +814,7 @@ class SimulatorAgent(Agent):
         customer_df = self.get_customer_stats()
         customer_df = customer_df[["name", "waiting_time", "total_time", "status"]]
         transport_df = self.get_transport_stats()
-        transport_df = transport_df[["name", "assignments", "distance", "status"]]
+        transport_df = transport_df[["name", "assignments", "distance", "status", "trust", "password", "fleet", "type"]]
         station_df = self.get_station_stats()
         station_df = station_df[["name", "status", "available_places", "power"]]
         stats = self.get_stats()

@@ -4,13 +4,14 @@ import random
 from loguru import logger
 from .customer import CustomerStrategyBehaviour
 from .fleetmanager import FleetManagerStrategyBehaviour
-from .helpers import PathRequestException
+from .helpers import PathRequestException, AlreadyInDestination
 from .protocol import REQUEST_PERFORMATIVE, ACCEPT_PERFORMATIVE, REFUSE_PERFORMATIVE, PROPOSE_PERFORMATIVE, \
     CANCEL_PERFORMATIVE, INFORM_PERFORMATIVE, QUERY_PROTOCOL, REQUEST_PROTOCOL, TRAVEL_PROTOCOL, RATE_PERFORMATIVE, RATE_PROTOCOL
 from .transport import TransportStrategyBehaviour
 from .utils import TRANSPORT_WAITING, TRANSPORT_WAITING_FOR_APPROVAL, CUSTOMER_WAITING, TRANSPORT_MOVING_TO_CUSTOMER, \
     CUSTOMER_ASSIGNED, TRANSPORT_WAITING_FOR_STATION_APPROVAL, TRANSPORT_MOVING_TO_STATION, \
     TRANSPORT_CHARGING, TRANSPORT_CHARGED, TRANSPORT_NEEDS_CHARGING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_DESTINATION, CUSTOMER_IN_TRANSPORT
+from whatever import _
 
 ################################################################
 #                                                              #
@@ -68,10 +69,11 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
         performative = msg.get_metadata("performative")
         protocol = msg.get_metadata("protocol")
 
-        if protocol == RATE_PROTOCOL:
-            if performative == RATE_PERFORMATIVE:
+        if performative == RATE_PERFORMATIVE:
                 rate = msg.body['rate']
-                self.agent.set_trust(rate)
+                print(rate)
+                self.agent.increase_trust(rate)
+
 
         if protocol == QUERY_PROTOCOL:
             if performative == INFORM_PERFORMATIVE:
@@ -79,8 +81,8 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
                 logger.info("Got list of current stations: {}".format(list(self.agent.stations.keys())))
             elif performative == CANCEL_PERFORMATIVE:
                 logger.info("Cancellation of request for stations information.")
-        
 
+        
         elif protocol == REQUEST_PROTOCOL:
             logger.debug("Transport {} received request protocol from customer/station.".format(self.agent.name))
 
@@ -198,13 +200,14 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
 
         
         if self.agent.status == CUSTOMER_IN_TRANSPORT:
-            l.append([self.agent.name, self.agent.transport_assigned])
-        if self.agent.status == CUSTOMER_IN_DEST:
+            if [self.agent.name, self.agent.transport_assigned] not in l:
+                l.append([self.agent.name, self.agent.transport_assigned])
             print(l)
+        if self.agent.status == CUSTOMER_IN_DEST:
             transport = None
             for cus in l:
                 if self.agent.name in cus:
                     transport = cus[1]
-            # l.remove([self.agent.name, transport])                
             await self.rate_transport(transport)
+
 

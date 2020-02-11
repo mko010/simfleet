@@ -1,0 +1,112 @@
+{
+    "simulation": {
+        "Simulation Name": "Example Config",
+        "Avg Waiting Time": "8.63",
+        "Avg Total Time": "13.30",
+        "Simulation Time": 19.3649942875,
+        "Max Time": 1000,
+        "Simulation Finished": true
+    },
+    "customers": {
+        "0": {
+            "name": "c1",
+            "waiting_time": 7.5053269863,
+            "total_time": 10.588873148,
+            "status": "CUSTOMER_IN_DEST"
+        },
+        "1": {
+            "name": "c2",
+            "waiting_time": 10.0648510456,
+            "total_time": 15.9108150005,
+            "status": "CUSTOMER_IN_DEST"
+        },
+        "2": {
+            "name": "c3",
+            "waiting_time": 7.5151460171,
+            "total_time": 11.9240682125,
+            "status": "CUSTOMER_IN_DEST"
+        },
+        "3": {
+            "name": "f1",
+            "waiting_time": 5.1933190823,
+            "total_time": 9.1865394115,
+            "status": "CUSTOMER_IN_DEST"
+        },
+        "4": {
+            "name": "f2",
+            "waiting_time": 12.888497591,
+            "total_time": 18.8774936199,
+            "status": "CUSTOMER_IN_DEST"
+        }
+    },
+    "transports": {
+        "0": {
+            "name": "drone1",
+            "assignments": 1,
+            "distance": "9280.60",
+            "status": "TRANSPORT_WAITING",
+            "trust": 0,
+            "password": "secret",
+            "fleet": "drone1@localhost",
+            "type": "drone"
+        },
+        "1": {
+            "name": "drone2",
+            "assignments": 1,
+            "distance": "7501.50",
+            "status": "TRANSPORT_WAITING",
+            "trust": 0,
+            "password": "secret",
+            "fleet": "drone2@localhost",
+            "type": "drone"
+        },
+        "2": {
+            "name": "drone3",
+            "assignments": 1,
+            "distance": "6298.30",
+            "status": "TRANSPORT_WAITING",
+            "trust": 0,
+            "password": "secret",
+            "fleet": "drone3@localhost",
+            "type": "drone"
+        },
+        "3": {
+            "name": "bike1",
+            "assignments": 1,
+            "distance": "10732.20",
+            "status": "TRANSPORT_WAITING",
+            "trust": 0,
+            "password": "secret",
+            "fleet": "bike1@localhost",
+            "type": "food_delivery"
+        },
+        "4": {
+            "name": "bike2",
+            "assignments": 1,
+            "distance": "6987.90",
+            "status": "TRANSPORT_WAITING",
+            "trust": 0,
+            "password": "secret",
+            "fleet": "bike2@localhost",
+            "type": "food_delivery"
+        }
+    },
+    "managers": {
+        "0": {
+            "fleet_name": "fleetm1",
+            "transports_in_fleet": 2,
+            "type": "drone"
+        },
+        "1": {
+            "fleet_name": "fleetm3",
+            "transports_in_fleet": 2,
+            "type": "food_delivery"
+        },
+        "2": {
+            "fleet_name": "fleetm2",
+            "transports_in_fleet": 1,
+            "type": "drone"
+        }
+    },
+    "stations": {}
+}

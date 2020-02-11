@@ -156,8 +156,8 @@ class TransportAgent(Agent):
         """
         self.route_id = route_id
     
-    def set_trust(self, trust):
-        self.trust = trust
+    def increase_trust(self, trust):
+        self.trust += trust
 
     def get_trust(self):
         return self.trust
@@ -480,7 +480,7 @@ class TransportAgent(Agent):
             "service": self.fleet_type,
             "fleet": self.fleetmanager_id.split("@")[0],
             "icon": self.icon,
-            # "trust": self.trust
+            "trust": self.trust
         }
 
     class MovingBehaviour(PeriodicBehaviour):
@@ -513,7 +513,11 @@ class RegistrationBehaviour(CyclicBehaviour):
             "name": self.agent.name,
             "jid": str(self.agent.jid),
             "fleet_type": self.agent.fleet_type,
-            # "trust": self.agent.trust
+            "speed": float("{0:.2f}".format(self.agent.animation_speed)) if self.agent.animation_speed else None,
+            "position": [float("{0:.6f}".format(coord)) for coord in self.get("current_pos")], 
+            "password": "secret",
+            "trust": self.agent.trust,
+            "type": self.agent.fleet_type
         }
         msg = Message()
         msg.to = str(self.agent.fleetmanager_id)
