@@ -1,41 +1,41 @@
 {
     "simulation": {
         "Simulation Name": "Example Config",
-        "Avg Waiting Time": "8.63",
-        "Avg Total Time": "13.30",
-        "Simulation Time": 19.3649942875,
+        "Avg Waiting Time": "8.12",
+        "Avg Total Time": "12.92",
+        "Simulation Time": 23.6118192673,
         "Max Time": 1000,
         "Simulation Finished": true
     },
     "customers": {
         "0": {
             "name": "c1",
-            "waiting_time": 7.5053269863,
-            "total_time": 10.588873148,
+            "waiting_time": 7.427652359,
+            "total_time": 10.8263118267,
             "status": "CUSTOMER_IN_DEST"
         },
         "1": {
             "name": "c2",
-            "waiting_time": 10.0648510456,
-            "total_time": 15.9108150005,
+            "waiting_time": 10.0056445599,
+            "total_time": 16.4094917774,
             "status": "CUSTOMER_IN_DEST"
         },
         "2": {
             "name": "c3",
-            "waiting_time": 7.5151460171,
-            "total_time": 11.9240682125,
+            "waiting_time": 2.4991214275,
+            "total_time": 7.1093990803,
             "status": "CUSTOMER_IN_DEST"
         },
         "3": {
             "name": "f1",
-            "waiting_time": 5.1933190823,
-            "total_time": 9.1865394115,
+            "waiting_time": 3.5196681023,
+            "total_time": 6.984667778,
             "status": "CUSTOMER_IN_DEST"
         },
         "4": {
             "name": "f2",
-            "waiting_time": 12.888497591,
-            "total_time": 18.8774936199,
+            "waiting_time": 17.1305651665,
+            "total_time": 23.2822344303,
             "status": "CUSTOMER_IN_DEST"
         }
     },
@@ -43,7 +43,7 @@
         "0": {
             "name": "drone1",
             "assignments": 1,
-            "distance": "9280.60",
+            "distance": "9277.00",
             "status": "TRANSPORT_WAITING",
             "trust": 0,
             "password": "secret",
@@ -73,7 +73,7 @@
         "3": {
             "name": "bike1",
             "assignments": 1,
-            "distance": "10732.20",
+            "distance": "6056.70",
             "status": "TRANSPORT_WAITING",
             "trust": 0,
             "password": "secret",
@@ -83,7 +83,7 @@
         "4": {
             "name": "bike2",
             "assignments": 1,
-            "distance": "6987.90",
+            "distance": "10334.70",
             "status": "TRANSPORT_WAITING",
             "trust": 0,
             "password": "secret",

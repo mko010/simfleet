@@ -517,7 +517,7 @@ class RegistrationBehaviour(CyclicBehaviour):
             "position": [float("{0:.6f}".format(coord)) for coord in self.get("current_pos")], 
             "password": "secret",
             "trust": self.agent.trust,
-            "type": self.agent.fleet_type
+            "fleet": self.agent.fleet_type
         }
         msg = Message()
         msg.to = str(self.agent.fleetmanager_id)

@@ -28,6 +28,9 @@ class TransportWaitingState(TransportStrategyBehaviour, State):
             await self.send_proposal(content["passenger_id"], {})
             self.set_next_state(TRANSPORT_WAITING_FOR_APPROVAL)
             return
+        elif performative == RATE_PERFORMATIVE:
+            self.set_next_state(TRANSPORT_WAITING_FOR_RATE)
+            return
         else:
             self.set_next_state(TRANSPORT_WAITING)
             return
@@ -90,27 +93,27 @@ class TransportMovingState(TransportStrategyBehaviour, State):
         return self.set_next_state(TRANSPORT_WAITING)
 
 
-class TransportWaitingForRate(TransportStrategyBehaviour, State):
+# class TransportWaitingForRate(TransportStrategyBehaviour, State):
 
-    async def on_start(self):
-        await super().on_start()
-        self.agent.status = TRANSPORT_WAITING_FOR_RATE
+#     async def on_start(self):
+#         await super().on_start()
+#         self.agent.status = TRANSPORT_WAITING_FOR_RATE
 
-    async def run(self):
-        msg = await self.receive(timeout=60)
-        if not msg:
-            logger.info("The customer hasn't sent rate.")
-            return
-        logger.info("received: {}".format(msg.body))
-        content = json.loads(msg.body)
-        performative = msg.get_metadata("performative")
-        if performative == RATE_PERFORMATIVE:
-            print(content)
-            self.set_next_state(TRANSPORT_WAITING)
-            return
-        else:
-            self.next_state(TRANSPORT_WAITING)
-            return
+#     async def run(self):
+#         msg = await self.receive(timeout=60)
+#         if not msg:
+#             logger.info("The customer hasn't sent rate.")
+#             return
+#         logger.info("received: {}".format(msg.body))
+#         content = json.loads(msg.body)
+#         performative = msg.get_metadata("performative")
+#         if performative == RATE_PERFORMATIVE:
+#             print(content)
+#             self.set_next_state(TRANSPORT_WAITING)
+#             return
+#         else:
+#             self.next_state(TRANSPORT_WAITING)
+#             return
 
 
 
@@ -120,7 +123,7 @@ class FSMTransportStrategyBehaviour(FSMBehaviour):
         self.add_state(TRANSPORT_WAITING, TransportWaitingState(), initial=True)
         self.add_state(TRANSPORT_WAITING_FOR_APPROVAL, TransportWaitingForApprovalState())
         self.add_state(TRANSPORT_MOVING_TO_CUSTOMER, TransportMovingState())
-        self.add_state(TRANSPORT_WAITING_FOR_RATE, TransportWaitingForRate())
+        # self.add_state(TRANSPORT_WAITING_FOR_RATE, TransportWaitingForRate())
 
         # Create transitions
         self.add_transition(TRANSPORT_WAITING, TRANSPORT_WAITING)
@@ -129,5 +132,5 @@ class FSMTransportStrategyBehaviour(FSMBehaviour):
         self.add_transition(TRANSPORT_WAITING_FOR_APPROVAL, TRANSPORT_WAITING)
         self.add_transition(TRANSPORT_WAITING_FOR_APPROVAL, TRANSPORT_WAITING_FOR_APPROVAL)
         self.add_transition(TRANSPORT_MOVING_TO_CUSTOMER, TRANSPORT_WAITING)
-        self.add_transition(TRANSPORT_MOVING_TO_DESTINATION, TRANSPORT_WAITING_FOR_RATE)
+        # self.add_transition(TRANSPORT_MOVING_TO_DESTINATION, TRANSPORT_WAITING_FOR_RATE)
         self.add_transition(TRANSPORT_WAITING_FOR_RATE, TRANSPORT_WAITING)

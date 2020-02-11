@@ -10,7 +10,7 @@ from .protocol import REQUEST_PERFORMATIVE, ACCEPT_PERFORMATIVE, REFUSE_PERFORMA
 from .transport import TransportStrategyBehaviour
 from .utils import TRANSPORT_WAITING, TRANSPORT_WAITING_FOR_APPROVAL, CUSTOMER_WAITING, TRANSPORT_MOVING_TO_CUSTOMER, \
     CUSTOMER_ASSIGNED, TRANSPORT_WAITING_FOR_STATION_APPROVAL, TRANSPORT_MOVING_TO_STATION, \
-    TRANSPORT_CHARGING, TRANSPORT_CHARGED, TRANSPORT_NEEDS_CHARGING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_DESTINATION, CUSTOMER_IN_TRANSPORT
+    TRANSPORT_CHARGING, TRANSPORT_CHARGED, TRANSPORT_NEEDS_CHARGING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_DESTINATION, CUSTOMER_IN_TRANSPORT, TRANSPORT_WAITING_FOR_RATE
 from whatever import _
 
 ################################################################
@@ -70,10 +70,10 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
         protocol = msg.get_metadata("protocol")
 
         if performative == RATE_PERFORMATIVE:
-                rate = msg.body['rate']
-                print(rate)
-                self.agent.increase_trust(rate)
-
+            if self.agent.status == TRANSPORT_WAITING_FOR_RATE:
+                    rate = msg.body['rate']
+                    print(rate)
+                    self.agent.increase_trust(rate)
 
         if protocol == QUERY_PROTOCOL:
             if performative == INFORM_PERFORMATIVE:
