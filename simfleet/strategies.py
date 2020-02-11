@@ -70,10 +70,9 @@ class AcceptAlwaysStrategyBehaviour(TransportStrategyBehaviour):
         protocol = msg.get_metadata("protocol")
 
         if performative == RATE_PERFORMATIVE:
-            if self.agent.status == TRANSPORT_WAITING_FOR_RATE:
-                    rate = msg.body['rate']
-                    print(rate)
-                    self.agent.increase_trust(rate)
+            rate = content['rate']
+            self.agent.update_trust(rate)
+            logger.info('Taxi rated with {}'.format(rate))
 
         if protocol == QUERY_PROTOCOL:
             if performative == INFORM_PERFORMATIVE:

@@ -436,9 +436,9 @@ class TransportAgent(Agent):
             speed_in_kmh (float): the speed of the transport in km per hour
         """
         if self.velocity_factor >= 1:
-        	self.set("speed_in_kmh", speed_in_kmh*random.uniform(1, self.velocity_factor))
-    	else:
-    		self.set("speed_in_kmh", speed_in_kmh*random.uniform(self.velocity_factor, 1))
+            self.set("speed_in_kmh", speed_in_kmh*random.uniform(1, self.velocity_factor))
+        else:
+            self.set("speed_in_kmh", speed_in_kmh*random.uniform(self.velocity_factor, 1))
 
     def is_in_destination(self):
         """

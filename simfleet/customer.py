@@ -388,7 +388,7 @@ class CustomerStrategyBehaviour(StrategyBehaviour):
     async def rate_transport(self, transport_id):
         reply = Message()
         reply.to = str(transport_id)
-        # reply.set_metadata('protocol', TRAVEL_PROTOCOL)
+        reply.set_metadata('protocol', REQUEST_PROTOCOL)
         reply.set_metadata('performative', RATE_PERFORMATIVE)
         rate = self.agent.rate()
         content = {
