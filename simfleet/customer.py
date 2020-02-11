@@ -164,8 +164,8 @@ class CustomerAgent(Agent):
         return self.status == CUSTOMER_IN_DEST or self.get_position() == self.dest
 
     def rate(self):
-        if self.dest != self.dest_ori:
-            return -1
+        if self.total_time() > 10.0:
+            return 0
         else:
             return 1
 

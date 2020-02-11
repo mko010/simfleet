@@ -184,7 +184,7 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
                 if self.agent.status == CUSTOMER_WAITING:
                     logger.info(
                         "Customer {} received proposal from transport {} with trust = {}".format(self.agent.name, transport_id, msg.body))
-                    if int(msg.body) > -5:
+                    if int(msg.body) > 0:
                         await self.accept_transport(transport_id)
                         self.agent.status = CUSTOMER_ASSIGNED
                     else:

@@ -66,7 +66,7 @@ class TransportAgent(Agent):
         self.current_station_dest = None
 
         self.velocity_factor = 1.0
-        self.trust = 3.0
+        self.trust = 3
         self.rates = 1
 
     async def setup(self):
@@ -160,11 +160,11 @@ class TransportAgent(Agent):
 
         """
         self.route_id = route_id
-    
+
     def update_trust(self, trust):
-    	mean = self.trust*self.rates
-    	self.rates += 1
-        self.trust = (mean+trust)/self.rates
+        mean = self.trust * self.rates
+        self.rates += 1
+        self.trust = (mean + trust) / self.rates
 
     def get_trust(self):
         return self.trust
@@ -435,7 +435,7 @@ class TransportAgent(Agent):
         Args:
             speed_in_kmh (float): the speed of the transport in km per hour
         """
-        self.set("speed_in_kmh", speed_in_kmh)
+        self.set("speed_in_kmh", speed_in_kmh*random.uniform(0, self.velocity_factor))
 
     def is_in_destination(self):
         """
