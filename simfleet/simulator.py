@@ -135,6 +135,9 @@ class SimulatorAgent(Agent):
             fleetmanager = transport["fleet"]
             fleet_type = transport["fleet_type"]
             speed = transport.get("speed")
+            trust = transport.get("trust")
+            rates = transport.get("rates")
+            velocity_factor = transport.get("velocity_factor")
             fuel = transport.get("fuel")
             autonomy = transport.get("autonomy")
             current_autonomy = transport.get("current_autonomy")
@@ -142,7 +145,7 @@ class SimulatorAgent(Agent):
             icon = transport.get("icon")
             agent = self.create_transport_agent(name, password, position=position, speed=speed, fleet_type=fleet_type,
                                                 fleetmanager=fleetmanager, strategy=strategy, autonomy=autonomy,
-                                                current_autonomy=current_autonomy)
+                                                current_autonomy=current_autonomy, trust=trust, rates=rates, velocity_factor=velocity_factor)
 
             if icon:
                 self.set_icon(agent, icon, default=fleet_type)
@@ -868,7 +871,7 @@ class SimulatorAgent(Agent):
         return agent
 
     def create_transport_agent(self, name, password, fleet_type, fleetmanager, position, strategy=None, speed=None,
-                               autonomy=None, current_autonomy=None):
+                               autonomy=None, current_autonomy=None, trust=None, rates=None, velocity_factor=None):
         jid = f"{name}@{self.jid.domain}"
         agent = TransportAgent(jid, password)
         logger.debug("Creating Transport {}".format(jid))
@@ -886,6 +889,16 @@ class SimulatorAgent(Agent):
 
         if speed:
             agent.set_speed(speed)
+
+        if trust:
+            agent.set_trust(trust)
+
+        if rates:
+            agent.set_rates(rates)
+
+        if velocity_factor:
+            agent.set_velocity_factor(velocity_factor)
+
 
         if strategy:
             agent.strategy = load_class(strategy)

@@ -18,6 +18,8 @@ from .utils import TRANSPORT_WAITING, TRANSPORT_MOVING_TO_CUSTOMER, TRANSPORT_IN
     CUSTOMER_IN_DEST, CUSTOMER_LOCATION, TRANSPORT_MOVING_TO_STATION, chunk_path, request_path, StrategyBehaviour, \
     TRANSPORT_NEEDS_CHARGING
 
+import random
+
 MIN_AUTONOMY = 2
 ONESECOND_IN_MS = 1000
 
@@ -62,7 +64,10 @@ class TransportAgent(Agent):
         self.num_charges = 0
         self.set("current_station", None)
         self.current_station_dest = None
-        self.trust = 0
+
+        self.velocity_factor = 1.0
+        self.trust = 3.0
+        self.rates = 1
 
     async def setup(self):
         try:
@@ -156,11 +161,28 @@ class TransportAgent(Agent):
         """
         self.route_id = route_id
     
-    def increase_trust(self, trust):
-        self.trust += trust
+    def update_trust(self, trust):
+    	mean = self.trust*self.rates
+    	self.rates += 1
+        self.trust = (mean+trust)/self.rates
 
     def get_trust(self):
         return self.trust
+
+    def set_trust(self, trust):
+        self.trust = trust
+
+    def get_rates(self):
+        return self.rates
+
+    def set_rates(self, rates):
+        self.rates = rates
+
+    def get_velocity_factor(self):
+        return self.velocity_factor
+
+    def set_velocity_factor(self, velocity_factor):
+        self.velocity_factor = velocity_factor
 
     async def send(self, msg):
         if not msg.sender:
@@ -480,7 +502,9 @@ class TransportAgent(Agent):
             "service": self.fleet_type,
             "fleet": self.fleetmanager_id.split("@")[0],
             "icon": self.icon,
-            "trust": self.trust
+            "trust": self.trust,
+            "rates": self.rates,
+            "velocity_factor": self.velocity_factor
         }
 
     class MovingBehaviour(PeriodicBehaviour):
