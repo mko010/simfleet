@@ -42,6 +42,7 @@ class TransportAgent(Agent):
         self.set("path", None)
         self.chunked_path = None
         self.set("speed_in_kmh", 3000)
+        self.speed = 3000
         self.animation_speed = ONESECOND_IN_MS
         self.distances = []
         self.durations = []
@@ -428,6 +429,24 @@ class TransportAgent(Agent):
         """
         return self.get("current_pos")
 
+    def adjust_speed(self, speed_in_kmh = 2000):
+        """
+        Sets the speed of the transport with a random varying.
+
+        Args:
+            speed_in_kmh (float): the speed of the transport in km per hour
+        """
+        if self.velocity_factor >= 1:
+            self.speed = speed_in_kmh*random.uniform(1, self.velocity_factor)
+            
+        else:
+            if self.trust > 2.5:
+                self.speed = speed_in_kmh*random.uniform(self.velocity_factor, 1)                
+            else:
+                self.speed = speed_in_kmh
+
+        self.set("speed_in_kmh", self.speed)
+
     def set_speed(self, speed_in_kmh):
         """
         Sets the speed of the transport.
@@ -435,10 +454,8 @@ class TransportAgent(Agent):
         Args:
             speed_in_kmh (float): the speed of the transport in km per hour
         """
-        if self.velocity_factor >= 1:
-            self.set("speed_in_kmh", speed_in_kmh*random.uniform(1, self.velocity_factor))
-        else:
-            self.set("speed_in_kmh", speed_in_kmh*random.uniform(self.velocity_factor, 1))
+        self.speed = speed_in_kmh
+        self.set("speed_in_kmh", speed_in_kmh)
 
     def is_in_destination(self):
         """
@@ -601,6 +618,7 @@ class TransportStrategyBehaviour(StrategyBehaviour):
             origin (list): the coordinates of the current location of the customer
             dest (list): the coordinates of the target destination of the customer
         """
+        self.agent.adjust_speed()
         logger.info("Transport {} on route to customer {}".format(self.agent.name, customer_id))
         reply = Message()
         reply.to = customer_id
