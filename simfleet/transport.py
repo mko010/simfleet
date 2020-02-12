@@ -68,7 +68,7 @@ class TransportAgent(Agent):
 
         self.velocity_factor = 1.0
         self.trust = 3.0
-        self.rates = 1.0
+        self.rates = 0.0
 
     async def setup(self):
         try:
