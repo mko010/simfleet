@@ -16,7 +16,7 @@ from .helpers import random_position
 from .protocol import REQUEST_PROTOCOL, TRAVEL_PROTOCOL, REQUEST_PERFORMATIVE, ACCEPT_PERFORMATIVE, REFUSE_PERFORMATIVE, \
     QUERY_PROTOCOL, TRAVEL_PROTOCOL, INFORM_PERFORMATIVE, RATE_PERFORMATIVE, RATE_PROTOCOL
 from .utils import CUSTOMER_WAITING, CUSTOMER_IN_DEST, TRANSPORT_MOVING_TO_CUSTOMER, CUSTOMER_IN_TRANSPORT, \
-    TRANSPORT_IN_CUSTOMER_PLACE, CUSTOMER_LOCATION, StrategyBehaviour, request_path, status_to_str
+    TRANSPORT_IN_CUSTOMER_PLACE, CUSTOMER_LOCATION, StrategyBehaviour, request_path, status_to_str, TRANSPORT_WAITING_FOR_RATE
 
 
 class CustomerAgent(Agent):
@@ -181,9 +181,6 @@ class CustomerAgent(Agent):
         distance = result["routes"][0]["distance"]
         run_time = self.total_time() - self.get_waiting_time()
 
-        logger.info("--------------------------------Runtime {} distance {}  {}  {}".format(run_time,
-                                                                                    distance, self.total_time(), self.get_waiting_time()))
-
         if run_time < distance/694.0:
             return 5
         elif run_time < distance/527.0:
@@ -313,7 +310,7 @@ class TravelBehaviour(CyclicBehaviour):
                     logger.info("Customer {} in transport.".format(self.agent.name))
                     self.agent.pickup_time = time.time()
                 elif status == CUSTOMER_IN_DEST:
-                    self.agent.status = CUSTOMER_IN_DEST
+                    self.agent.status = TRANSPORT_WAITING_FOR_RATE
                     self.agent.end_time = time.time()
                     logger.info("Customer {} arrived to destination after {} seconds."
                                 .format(self.agent.name, self.agent.total_time()))

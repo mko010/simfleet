@@ -154,8 +154,6 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
     """
     The default strategy for the Customer agent. By default it accepts the first proposal it receives.
     """
-    global l 
-    l = []
     async def run(self):
         if self.agent.fleetmanagers is None:
             await self.send_get_managers(self.agent.fleet_type)
@@ -197,16 +195,8 @@ class AcceptFirstRequestBehaviour(CustomerStrategyBehaviour):
                         "Customer {} received a CANCEL from Transport {}.".format(self.agent.name, transport_id))
                     self.agent.status = CUSTOMER_WAITING
 
-        
-        if self.agent.status == CUSTOMER_IN_TRANSPORT:
-            if [self.agent.name, self.agent.transport_assigned] not in l:
-                l.append([self.agent.name, self.agent.transport_assigned])
-            print(l)
-        if self.agent.status == CUSTOMER_IN_DEST:
-            transport = None
-            for cus in l:
-                if self.agent.name in cus:
-                    transport = cus[1]
-            await self.rate_transport(transport)
+        if self.agent.status == TRANSPORT_WAITING_FOR_RATE:
+            await self.rate_transport(self.agent.transport_assigned)
+            self.agent.status = CUSTOMER_IN_DEST
 
 
