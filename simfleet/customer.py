@@ -29,7 +29,6 @@ class CustomerAgent(Agent):
         self.status = CUSTOMER_WAITING
         self.current_pos = None
         self.dest = None
-        self.dest_ori = None
         self.port = None
         self.transport_assigned = None
         self.init_time = None
@@ -146,10 +145,7 @@ class CustomerAgent(Agent):
             self.dest = coords
             self.dest_ori = coords
             s = [True, False]
-            if random.choice(s):
-                self.dest[0] += 0.0000045
-                self.dest[1] += 0.0000045
-                print(self.dest == self.dest_ori)
+
         else:
             self.dest = random_position()
         logger.debug("Customer {} target position is {}".format(self.agent_id, self.dest))

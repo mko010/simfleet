@@ -328,11 +328,11 @@ class SimulatorAgent(Agent):
             filename (str): name of the json file.
         """
         data = {
-            "simulation": json.loads(self.df_avg.to_json(orient="index"))["0"],
-            "customers": json.loads(self.customer_df.to_json(orient="index")),
-            "transports": json.loads(self.transport_df.to_json(orient="index")),
-            "managers": json.loads(self.manager_df.to_json(orient="index")),
-            "stations": json.loads(self.station_df.to_json(orient="index"))
+            "fleets": json.loads(self.manager_df.to_json(orient="records")),
+            "transports": json.loads(self.transport_df.to_json(orient="records")),
+            "customers": json.loads(self.customer_df.to_json(orient="records")),
+            "stations": json.loads(self.station_df.to_json(orient="records")),
+            "simulation": json.loads(self.df_avg.to_json(orient="records"))
         }
 
         with open(filename, 'w') as f:
@@ -728,14 +728,14 @@ class SimulatorAgent(Agent):
             ``pandas.DataFrame``: the dataframe with the customers stats.
         """
         try:
-            names, quantities, types = zip(*[(manager.name,
-                                              manager.transports_in_fleet, manager.fleet_type)
+            names, quantities, types, passwords = zip(*[(manager.name,
+                                              manager.transports_in_fleet, manager.fleet_type, manager.password)
                                              for manager in self.manager_agents.values()])
         except ValueError:
-            names, quantities, types = [], [], []
+            names, quantities, types, passwords = [], [], [], []
 
         df = pd.DataFrame.from_dict(
-            {"fleet_name": names, "transports_in_fleet": quantities, "type": types})
+            {"password": passwords, "name": names, "transports_in_fleet": quantities, "fleet_type": types})
         return df
 
     def get_customer_stats(self):
@@ -747,13 +747,13 @@ class SimulatorAgent(Agent):
             ``pandas.DataFrame``: the dataframe with the customers stats.
         """
         try:
-            names, waitings, totals, statuses = zip(*[(p.name, p.get_waiting_time(),
-                                                       p.total_time(), status_to_str(p.status))
+            names, waitings, totals, statuses, destinations, passwords, types, positions = zip(*[(p.name, p.get_waiting_time(),
+                                                       p.total_time(), status_to_str(p.status), p.get_position(), p.password, p.fleet_type, p.set_position())
                                                       for p in self.customer_agents.values()])
         except ValueError:
-            names, waitings, totals, statuses = [], [], [], []
+            names, waitings, totals, statuses, destinations, passwords, types, positions = [], [], [], [], [], [], [], []
 
-        df = pd.DataFrame.from_dict({"name": names, "waiting_time": waitings, "total_time": totals, "status": statuses})
+        df = pd.DataFrame.from_dict({"name": names, "waiting_time": waitings, "total_time": totals, "status": statuses, "destination": destinations, "password": passwords, "fleet_type": types, "position": positions})
         return df
 
     def get_transport_stats(self):
@@ -765,16 +765,17 @@ class SimulatorAgent(Agent):
             ``pandas.DataFrame``: the dataframe with the transports stats.
         """
         try:
-            names, assignments, distances, statuses, trusts, passwords, ids, types = zip(*[(t.name, t.num_assignments,
+            names, assignments, distances, statuses, trusts, passwords, ids, types, positions = zip(*[(t.name, t.num_assignments,
                                                              "{0:.2f}".format(sum(t.distances)),
                                                              status_to_str(t.status),
                                                              t.trust,
                                                              t.password, 
                                                              t.agent_id + "@localhost",
-                                                             t.fleet_type)
+                                                             t.fleet_type,
+                                                             t.get_position())
                                                             for t in self.transport_agents.values()])
         except ValueError:
-            names, assignments, distances, statuses, trusts, passwords, ids, types = [], [], [], [], [], [], [], []
+            names, assignments, distances, statuses, trusts, passwords, ids, types, positions = [], [], [], [], [], [], [], [], []
         df = pd.DataFrame.from_dict({"name": names,
                                      "assignments": assignments,
                                      "distance": distances,
@@ -782,7 +783,8 @@ class SimulatorAgent(Agent):
                                      "trust": trusts,
                                      "password": passwords,
                                      "fleet": ids,
-                                     "type": types
+                                     "fleet_type": types,
+                                     "position": positions
                                      })
         return df
 
@@ -813,11 +815,11 @@ class SimulatorAgent(Agent):
             pandas.Dataframe, pandas.Dataframe, pandas.Dataframe: avg df, transport df and customer df
         """
         manager_df = self.get_manager_stats()
-        manager_df = manager_df[["fleet_name", "transports_in_fleet", "type"]]
+        manager_df = manager_df[["password", "name", "transports_in_fleet", "fleet_type"]]
         customer_df = self.get_customer_stats()
-        customer_df = customer_df[["name", "waiting_time", "total_time", "status"]]
+        customer_df = customer_df[["name", "waiting_time", "total_time", "status", "destination", "password", "fleet_type", "position"]]
         transport_df = self.get_transport_stats()
-        transport_df = transport_df[["name", "assignments", "distance", "status", "trust", "password", "fleet", "type"]]
+        transport_df = transport_df[["name", "assignments", "distance", "status", "trust", "password", "fleet", "fleet_type", "position"]]
         station_df = self.get_station_stats()
         station_df = station_df[["name", "status", "available_places", "power"]]
         stats = self.get_stats()
