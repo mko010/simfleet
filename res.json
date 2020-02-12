@@ -32,21 +32,25 @@
             "position": [
                 40.446163242,
                 -3.7075424194
-            ]
+            ],
+            "velocity_factor": 1.0,
+            "rates": 1.0
         },
         {
             "name": "drone2",
             "assignments": 1,
             "distance": "8036.20",
             "status": "TRANSPORT_WAITING",
-            "trust": 3.0,
+            "trust": 1.5,
             "password": "secret",
             "fleet": "drone2@localhost",
             "fleet_type": "drone",
             "position": [
                 40.4068299938,
                 -3.6702919006
-            ]
+            ],
+            "velocity_factor": 1.0,
+            "rates": 2.0
         },
         {
             "name": "drone3",
@@ -60,7 +64,9 @@
             "position": [
                 40.4300276322,
                 -3.6797332764
-            ]
+            ],
+            "velocity_factor": 1.0,
+            "rates": 3.0
         },
         {
             "name": "bike1",
@@ -74,7 +80,9 @@
             "position": [
                 40.4585726142,
                 -3.6804199219
-            ]
+            ],
+            "velocity_factor": 1.0,
+            "rates": 1.0
         },
         {
             "name": "bike2",
@@ -88,14 +96,16 @@
             "position": [
                 40.4578542394,
                 -3.7113189697
-            ]
+            ],
+            "velocity_factor": 1.0,
+            "rates": 1.0
         }
     ],
     "customers": [
         {
             "name": "c1",
-            "waiting_time": 11.8063364029,
-            "total_time": 14.9389543533,
+            "waiting_time": 11.8569817543,
+            "total_time": 14.7975142002,
             "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.446163242,
@@ -107,8 +117,8 @@
         },
         {
             "name": "c2",
-            "waiting_time": 12.7334001064,
-            "total_time": 19.1363143921,
+            "waiting_time": 7.7456595898,
+            "total_time": 14.0566675663,
             "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4068299938,
@@ -120,8 +130,8 @@
         },
         {
             "name": "c3",
-            "waiting_time": 2.4002614021,
-            "total_time": 6.8725616932,
+            "waiting_time": 2.4166498184,
+            "total_time": 6.9053883553,
             "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4300276322,
@@ -133,8 +143,8 @@
         },
         {
             "name": "f1",
-            "waiting_time": 5.1733493805,
-            "total_time": 8.8801934719,
+            "waiting_time": 5.1913435459,
+            "total_time": 8.8556895256,
             "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4578542394,
@@ -146,8 +156,8 @@
         },
         {
             "name": "f2",
-            "waiting_time": 12.7456576824,
-            "total_time": 18.3682551384,
+            "waiting_time": 12.7450134754,
+            "total_time": 18.7306816578,
             "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4585726142,
@@ -159,23 +169,14 @@
         }
     ],
     "stations": [],
-    "simulation_name": "Example Config",
-    "max_time": 1000,
-    "verbose": 1,
-    "transport_strategy": "simfleet.strategies.AcceptAlwaysStrategyBehaviour",
-    "customer_strategy": "simfleet.strategies.AcceptFirstRequestBehaviour",
-    "fleetmanager_strategy": "simfleet.strategies.DelegateRequestBehaviour",
-    "fleetmanager_name": "fleetmanager",
-    "fleetmanager_password": "fleetmanager_passwd",
-    "route_name": "route",
-    "route_password": "route_passwd",
-    "directory_name": "directory",
-    "directory_password": "directory_passwd",
-    "host": "localhost",
-    "xmpp_port": 5222,
-    "http_port": 9001,
-    "http_ip": "127.0.0.1",
-    "coords": [40.4167754, -3.7037902],
-    "zoom": 14
-
+    "simulation": [
+        {
+            "Simulation Name": "Example Config",
+            "Avg Waiting Time": "7.99",
+            "Avg Total Time": "12.67",
+            "Simulation Time": 19.0276088715,
+            "Max Time": 1000,
+            "Simulation Finished": true
+        }
+    ]
 }
