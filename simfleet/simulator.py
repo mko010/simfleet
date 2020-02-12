@@ -332,7 +332,7 @@ class SimulatorAgent(Agent):
             "transports": json.loads(self.transport_df.to_json(orient="records")),
             "customers": json.loads(self.customer_df.to_json(orient="records")),
             "stations": json.loads(self.station_df.to_json(orient="records")),
-            "simulation": json.loads(self.df_avg.to_json(orient="records"))
+            # "simulation": json.loads(self.df_avg.to_json(orient="records"))
         }
 
         with open(filename, 'w') as f:
@@ -648,7 +648,7 @@ class SimulatorAgent(Agent):
         df_avg, transport_df, customer_df, manager_df, stations_df = self.get_stats_dataframes()
 
         data = {
-            "simulation": json.loads(df_avg.to_json(orient="index"))["0"],
+            "simulation": json.loads(df_avg.to_json(orient="index")),
             "customers": json.loads(customer_df.to_json(orient="index")),
             "transports": json.loads(transport_df.to_json(orient="index")),
             "fleetmanagers": json.loads(manager_df.to_json(orient="index")),
@@ -748,7 +748,7 @@ class SimulatorAgent(Agent):
         """
         try:
             names, waitings, totals, statuses, destinations, passwords, types, positions = zip(*[(p.name, p.get_waiting_time(),
-                                                       p.total_time(), status_to_str(p.status), p.get_position(), p.password, p.fleet_type, p.set_position())
+                                                       p.total_time(), status_to_str(p.status), p.get_position(), p.password, p.fleet_type, p.init_position)
                                                       for p in self.customer_agents.values()])
         except ValueError:
             names, waitings, totals, statuses, destinations, passwords, types, positions = [], [], [], [], [], [], [], []
@@ -765,7 +765,7 @@ class SimulatorAgent(Agent):
             ``pandas.DataFrame``: the dataframe with the transports stats.
         """
         try:
-            names, assignments, distances, statuses, trusts, passwords, ids, types, positions, vel_factors, rates = zip(*[(t.name, t.num_assignments,
+            names, assignments, distances, statuses, trusts, passwords, ids, types, positions, vel_factors, rates, managers = zip(*[(t.name, t.num_assignments,
                                                              "{0:.2f}".format(sum(t.distances)),
                                                              status_to_str(t.status),
                                                              t.trust,
@@ -774,23 +774,29 @@ class SimulatorAgent(Agent):
                                                              t.fleet_type,
                                                              t.get_position(),
                                                              t.velocity_factor,
-                                                             t.rates
+                                                             t.rates,
+                                                             t.fleetmanager_id
                                                              )
                                                             for t in self.transport_agents.values()])
+            # l_name = list(names)
+            # l_managers = list(managers)
+            # names = l_managers + l_name
+            # names = tuple(names)
         except ValueError:
-            names, assignments, distances, statuses, trusts, passwords, ids, types, positions, vel_factors, rates, speeds = [], [], [], [], [], [], [], [], [], [], [], []
+            names, assignments, distances, statuses, trusts, passwords, ids, types, positions, vel_factors, rates, speeds, managers = [], [], [], [], [], [], [], [], [], [], [], [], []
         df = pd.DataFrame.from_dict({"name": names,
                                      "assignments": assignments,
                                      "distance": distances,
                                      "status": statuses,
                                      "trust": trusts,
                                      "password": passwords,
-                                     "fleet": ids,
+                                    #  "fleet": ids,
                                      "fleet_type": types,
                                      "position": positions,
                                      "velocity_factor": vel_factors,
                                      "rates": rates,
-                                     "speed": 2000
+                                     "speed": 2000,
+                                     "fleet": managers,
                                      })
         return df
 
@@ -821,11 +827,11 @@ class SimulatorAgent(Agent):
             pandas.Dataframe, pandas.Dataframe, pandas.Dataframe: avg df, transport df and customer df
         """
         manager_df = self.get_manager_stats()
-        manager_df = manager_df[["password", "name", "transports_in_fleet", "fleet_type"]]
+        manager_df = manager_df[["password", "name", "fleet_type"]]
         customer_df = self.get_customer_stats()
-        customer_df = customer_df[["name", "waiting_time", "total_time", "status", "destination", "password", "fleet_type", "position"]]
+        customer_df = customer_df[["destination", "position", "password", "name", "fleet_type"]]
         transport_df = self.get_transport_stats()
-        transport_df = transport_df[["name", "assignments", "distance", "status", "trust", "password", "fleet", "fleet_type", "position", "velocity_factor", "rates", "speed"]]
+        transport_df = transport_df[["speed", "fleet", "fleet_type", "position", "password", "name", "velocity_factor", "rates", "trust"]]
         station_df = self.get_station_stats()
         station_df = station_df[["name", "status", "available_places", "power"]]
         stats = self.get_stats()
@@ -898,8 +904,8 @@ class SimulatorAgent(Agent):
         if speed:
             agent.set_speed(speed)
 
-        if trust:
-            agent.set_trust(trust)
+        # if trust:
+        #     agent.set_trust(trust)
 
         if rates:
             agent.set_rates(rates)
