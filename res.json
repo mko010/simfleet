@@ -22,28 +22,28 @@
             "fleet": "fleetm1@localhost",
             "fleet_type": "drone",
             "position": [
-                40.4068299938,
-                -3.6702919006
+                40.446163242,
+                -3.7075424194
             ],
             "password": "secret",
             "name": "drone1",
             "velocity_factor": 0.7,
             "rates": 3.0,
-            "trust": 3.0
+            "trust": 3.6666666667
         },
         {
             "speed": 2000,
             "fleet": "fleetm1@localhost",
             "fleet_type": "drone",
             "position": [
-                40.446163242,
-                -3.7075424194
+                40.4068299938,
+                -3.6702919006
             ],
             "password": "secret",
             "name": "drone2",
             "velocity_factor": 0.9,
-            "rates": 4.0,
-            "trust": 3.5
+            "rates": 5.0,
+            "trust": 3.4
         },
         {
             "speed": 2000,
@@ -56,21 +56,7 @@
             "password": "secret",
             "name": "drone3",
             "velocity_factor": 1.2,
-            "rates": 5.0,
-            "trust": 3.4
-        },
-        {
-            "speed": 2000,
-            "fleet": "fleetm3@localhost",
-            "fleet_type": "food_delivery",
-            "position": [
-                40.4585726142,
-                -3.6804199219
-            ],
-            "password": "secret",
-            "name": "bike1",
-            "velocity_factor": 0.8,
-            "rates": 3.0,
+            "rates": 6.0,
             "trust": 3.0
         },
         {
@@ -82,10 +68,24 @@
                 -3.7113189697
             ],
             "password": "secret",
-            "name": "bike2",
-            "velocity_factor": 1.3,
+            "name": "bike1",
+            "velocity_factor": 0.8,
             "rates": 3.0,
             "trust": 3.6666666667
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm3@localhost",
+            "fleet_type": "food_delivery",
+            "position": [
+                40.4585726142,
+                -3.6804199219
+            ],
+            "password": "secret",
+            "name": "bike2",
+            "velocity_factor": 1.3,
+            "rates": 6.0,
+            "trust": 3.3333333333
         }
     ],
     "customers": [
@@ -155,5 +155,26 @@
             "fleet_type": "food_delivery"
         }
     ],
-    "stations": []
+    "stations": [],
+    "simulation_name": "Example Config",
+    "max_time": 1000,
+    "verbose": 1,
+    "transport_strategy": "simfleet.strategies.AcceptAlwaysStrategyBehaviour",
+    "customer_strategy": "simfleet.strategies.AcceptFirstRequestBehaviour",
+    "fleetmanager_strategy": "simfleet.strategies.DelegateRequestBehaviour",
+    "fleetmanager_name": "fleetmanager",
+    "fleetmanager_password": "fleetmanager_passwd",
+    "route_name": "route",
+    "route_password": "route_passwd",
+    "directory_name": "directory",
+    "directory_password": "directory_passwd",
+    "host": "localhost",
+    "xmpp_port": 5222,
+    "http_port": 9001,
+    "http_ip": "127.0.0.1",
+    "coords": [
+        40.4167754,
+        -3.7037902
+    ],
+    "zoom": 14
 }

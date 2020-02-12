@@ -265,7 +265,7 @@ class SimulatorAgent(Agent):
 
         self.print_stats()
         
-        self.write_json('res.json')
+        self.write_json_trust('res.json')
 
         return super().stop()
 
@@ -319,7 +319,37 @@ class SimulatorAgent(Agent):
             self.write_json(filename)
         elif fileformat == "excel":
             self.write_excel(filename)
+    
+    def write_json_trust(self, filename):
+        data = {
+            "fleets": json.loads(self.manager_df.to_json(orient="records")),
+            "transports": json.loads(self.transport_df.to_json(orient="records")),
+            "customers": json.loads(self.customer_df.to_json(orient="records")),
+            "stations": json.loads(self.station_df.to_json(orient="records")),
+            "simulation_name": "Example Config",
+            "max_time": 1000,
+            "verbose": 1,
+            "transport_strategy": "simfleet.strategies.AcceptAlwaysStrategyBehaviour",
+            "customer_strategy": "simfleet.strategies.AcceptFirstRequestBehaviour",
+            "fleetmanager_strategy": "simfleet.strategies.DelegateRequestBehaviour",
+            "fleetmanager_name": "fleetmanager",
+            "fleetmanager_password": "fleetmanager_passwd",
+            "route_name": "route",
+            "route_password": "route_passwd",
+            "directory_name": "directory",
+            "directory_password": "directory_passwd",
+            "host": "localhost",
+            "xmpp_port": 5222,
+            "http_port": 9001,
+            "http_ip": "127.0.0.1",
+            "coords": [40.4167754, -3.7037902],
+            "zoom": 14
+        }
 
+        with open(filename, 'w') as f:
+            f.seek(0)
+            json.dump(data, f, indent=4)
+ 
     def write_json(self, filename):
         """
         Writes the collected data by ``collect_stats`` in a json file.
@@ -332,7 +362,7 @@ class SimulatorAgent(Agent):
             "transports": json.loads(self.transport_df.to_json(orient="records")),
             "customers": json.loads(self.customer_df.to_json(orient="records")),
             "stations": json.loads(self.station_df.to_json(orient="records")),
-            # "simulation": json.loads(self.df_avg.to_json(orient="records"))
+            "simulation": json.loads(self.df_avg.to_json(orient="records"))
         }
 
         with open(filename, 'w') as f:
@@ -765,12 +795,11 @@ class SimulatorAgent(Agent):
             ``pandas.DataFrame``: the dataframe with the transports stats.
         """
         try:
-            names, assignments, distances, statuses, trusts, passwords, ids, types, positions, vel_factors, rates, managers = zip(*[(t.name, t.num_assignments,
+            names, assignments, distances, statuses, trusts, passwords, types, positions, vel_factors, rates, managers = zip(*[(t.name, t.num_assignments,
                                                              "{0:.2f}".format(sum(t.distances)),
                                                              status_to_str(t.status),
                                                              t.trust,
                                                              t.password, 
-                                                             t.agent_id + "@localhost",
                                                              t.fleet_type,
                                                              t.get_position(),
                                                              t.velocity_factor,
@@ -778,19 +807,14 @@ class SimulatorAgent(Agent):
                                                              t.fleetmanager_id
                                                              )
                                                             for t in self.transport_agents.values()])
-            # l_name = list(names)
-            # l_managers = list(managers)
-            # names = l_managers + l_name
-            # names = tuple(names)
         except ValueError:
-            names, assignments, distances, statuses, trusts, passwords, ids, types, positions, vel_factors, rates, speeds, managers = [], [], [], [], [], [], [], [], [], [], [], [], []
+            names, assignments, distances, statuses, trusts, passwords, types, positions, vel_factors, rates, managers = [], [], [], [], [], [], [], [], [], [], []
         df = pd.DataFrame.from_dict({"name": names,
                                      "assignments": assignments,
                                      "distance": distances,
                                      "status": statuses,
                                      "trust": trusts,
                                      "password": passwords,
-                                    #  "fleet": ids,
                                      "fleet_type": types,
                                      "position": positions,
                                      "velocity_factor": vel_factors,
