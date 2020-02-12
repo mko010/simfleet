@@ -91,7 +91,7 @@ class RouteAgent(Agent):
             url = "http://osrm.gti-ia.upv.es/route/v1/car/{src1},{src2};{dest1},{dest2}?geometries=geojson&overview=full"
             src1, src2, dest1, dest2 = origin[1], origin[0], destination[1], destination[0]
 
-            url = url.format(src1=src1, src2=src2, dest1=dest1+0.000056, dest2=dest2+0.0000056)
+            url = url.format(src1=src1, src2=src2, dest1=dest1, dest2=dest2)
 
             session = requests.Session()
             retry = Retry(connect=3, backoff_factor=1.0)

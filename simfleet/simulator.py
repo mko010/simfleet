@@ -940,6 +940,8 @@ class SimulatorAgent(Agent):
 
         agent.set_position(position)
 
+        agent.set_initial_position(position)
+
         agent.set_target_position(target)
 
         if strategy:

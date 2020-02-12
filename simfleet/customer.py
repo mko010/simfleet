@@ -7,6 +7,9 @@ from spade.agent import Agent
 from spade.behaviour import CyclicBehaviour
 from spade.message import Message
 from spade.template import Template
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3 import Retry
 import random
 
 from .helpers import random_position
@@ -36,6 +39,8 @@ class CustomerAgent(Agent):
         self.pickup_time = None
         self.end_time = None
         self.stopped = False
+
+        self.init_position = None
 
         self.directory_id = None
         self.type_service = "taxi"
@@ -159,11 +164,38 @@ class CustomerAgent(Agent):
         """
         return self.status == CUSTOMER_IN_DEST or self.get_position() == self.dest
 
+    def set_initial_position(self, position):
+        self.init_position = position
+
     def rate(self):
-        if self.total_time() > 10.0:
-            return 0
-        else:
+        url = "http://osrm.gti-ia.upv.es/route/v1/car/{src1},{src2};{dest1},{dest2}?geometries=geojson&overview=full"
+        src1, src2, dest1, dest2 = self.init_position[1], self.init_position[0], self.dest[1], self.dest[0]
+        url = url.format(src1=src1, src2=src2, dest1=dest1, dest2=dest2)
+        session = requests.Session()
+        retry = Retry(connect=3, backoff_factor=1.0)
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount(url, adapter)
+        result = session.get(url)
+        result = json.loads(result.content)
+
+        distance = result["routes"][0]["distance"]
+        run_time = self.total_time() - self.get_waiting_time()
+
+        logger.info("--------------------------------Runtime {} distance {}  {}  {}".format(run_time,
+                                                                                    distance, self.total_time(), self.get_waiting_time()))
+
+        if run_time < distance/694.0:
+            return 5
+        elif run_time < distance/527.0:
+            return 4
+        elif run_time < distance/416.0:
+            return 3
+        elif run_time < distance/347.0:
+            return 2
+        elif run_time < distance/277.0:
             return 1
+        else:
+            return 0
 
     async def request_path(self, origin, destination):
         """
