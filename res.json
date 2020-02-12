@@ -3,203 +3,157 @@
         {
             "password": "secret",
             "name": "fleetm1",
-            "transports_in_fleet": 2,
             "fleet_type": "drone"
         },
         {
             "password": "secret",
             "name": "fleetm3",
-            "transports_in_fleet": 2,
             "fleet_type": "food_delivery"
         },
         {
             "password": "secret",
             "name": "fleetm2",
-            "transports_in_fleet": 1,
             "fleet_type": "drone"
         }
     ],
     "transports": [
         {
-            "name": "drone1",
-            "assignments": 1,
-            "distance": "9277.00",
-            "status": "TRANSPORT_WAITING",
-            "trust": 3.0,
-            "password": "secret",
-            "fleet": "drone1@localhost",
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
             "fleet_type": "drone",
             "position": [
                 40.4068299938,
                 -3.6702919006
             ],
-            "velocity_factor": 1.0,
-            "rates": 1.0,
-            "speed": 2000
+            "password": "secret",
+            "name": "drone1",
+            "velocity_factor": 0.7,
+            "rates": 3.0,
+            "trust": 3.0
         },
         {
-            "name": "drone2",
-            "assignments": 1,
-            "distance": "7502.80",
-            "status": "TRANSPORT_WAITING",
-            "trust": 1.5,
-            "password": "secret",
-            "fleet": "drone2@localhost",
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
             "fleet_type": "drone",
             "position": [
                 40.446163242,
                 -3.7075424194
             ],
-            "velocity_factor": 1.0,
-            "rates": 2.0,
-            "speed": 2000
+            "password": "secret",
+            "name": "drone2",
+            "velocity_factor": 0.9,
+            "rates": 4.0,
+            "trust": 3.5
         },
         {
-            "name": "drone3",
-            "assignments": 1,
-            "distance": "6296.90",
-            "status": "TRANSPORT_WAITING",
-            "trust": 3.0,
-            "password": "secret",
-            "fleet": "drone3@localhost",
+            "speed": 2000,
+            "fleet": "fleetm2@localhost",
             "fleet_type": "drone",
             "position": [
                 40.4300276322,
                 -3.6797332764
             ],
-            "velocity_factor": 1.0,
-            "rates": 1.0,
-            "speed": 2000
+            "password": "secret",
+            "name": "drone3",
+            "velocity_factor": 1.2,
+            "rates": 5.0,
+            "trust": 3.4
         },
         {
-            "name": "bike1",
-            "assignments": 1,
-            "distance": "6056.70",
-            "status": "TRANSPORT_WAITING",
-            "trust": 1.6666666667,
-            "password": "secret",
-            "fleet": "bike1@localhost",
-            "fleet_type": "food_delivery",
-            "position": [
-                40.4578542394,
-                -3.7113189697
-            ],
-            "velocity_factor": 1.0,
-            "rates": 3.0,
-            "speed": 2000
-        },
-        {
-            "name": "bike2",
-            "assignments": 1,
-            "distance": "10329.40",
-            "status": "TRANSPORT_WAITING",
-            "trust": 3.0,
-            "password": "secret",
-            "fleet": "bike2@localhost",
+            "speed": 2000,
+            "fleet": "fleetm3@localhost",
             "fleet_type": "food_delivery",
             "position": [
                 40.4585726142,
                 -3.6804199219
             ],
-            "velocity_factor": 1.0,
-            "rates": 1.0,
-            "speed": 2000
+            "password": "secret",
+            "name": "bike1",
+            "velocity_factor": 0.8,
+            "rates": 3.0,
+            "trust": 3.0
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm3@localhost",
+            "fleet_type": "food_delivery",
+            "position": [
+                40.4578542394,
+                -3.7113189697
+            ],
+            "password": "secret",
+            "name": "bike2",
+            "velocity_factor": 1.3,
+            "rates": 3.0,
+            "trust": 3.6666666667
         }
     ],
     "customers": [
         {
-            "name": "c1",
-            "waiting_time": 7.3357686996,
-            "total_time": 10.7102956772,
-            "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.446163242,
                 -3.7075424194
             ],
+            "position": [
+                40.4517150865,
+                -3.6775016785
+            ],
             "password": "secret",
-            "fleet_type": "drone",
-            "position": null
+            "name": "c1",
+            "fleet_type": "drone"
         },
         {
-            "name": "c2",
-            "waiting_time": 9.9979269505,
-            "total_time": 15.6060080528,
-            "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4068299938,
                 -3.6702919006
             ],
+            "position": [
+                40.4308769714,
+                -3.7162971497
+            ],
             "password": "secret",
-            "fleet_type": "drone",
-            "position": null
+            "name": "c2",
+            "fleet_type": "drone"
         },
         {
-            "name": "c3",
-            "waiting_time": 12.3985314369,
-            "total_time": 16.8652181625,
-            "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4300276322,
                 -3.6797332764
             ],
+            "position": [
+                40.4575930103,
+                -3.6640262604
+            ],
             "password": "secret",
-            "fleet_type": "drone",
-            "position": null
+            "name": "c3",
+            "fleet_type": "drone"
         },
         {
-            "name": "f1",
-            "waiting_time": 3.503408432,
-            "total_time": 7.1992657185,
-            "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4578542394,
                 -3.7113189697
             ],
+            "position": [
+                40.4400883455,
+                -3.6808490753
+            ],
             "password": "secret",
-            "fleet_type": "food_delivery",
-            "position": null
+            "name": "f1",
+            "fleet_type": "food_delivery"
         },
         {
-            "name": "f2",
-            "waiting_time": 12.0354027748,
-            "total_time": 18.0160779953,
-            "status": "CUSTOMER_IN_DEST",
             "destination": [
                 40.4585726142,
                 -3.6804199219
             ],
+            "position": [
+                40.4097709822,
+                -3.6928653717
+            ],
             "password": "secret",
-            "fleet_type": "food_delivery",
-            "position": null
+            "name": "f2",
+            "fleet_type": "food_delivery"
         }
     ],
-    "stations": [],
-    "simulation": [
-        {
-            "Simulation Name": "Example Config",
-            "Avg Waiting Time": "9.05",
-            "Avg Total Time": "13.68",
-            "Simulation Time": 18.225117445,
-            "Max Time": 1000,
-            "Simulation Finished": true
-        }
-    ],
-    "simulation_name": "Example Config",
-    "max_time": 1000,
-    "verbose": 1,
-    "transport_strategy": "simfleet.strategies.AcceptAlwaysStrategyBehaviour",
-    "customer_strategy": "simfleet.strategies.AcceptFirstRequestBehaviour",
-    "fleetmanager_strategy": "simfleet.strategies.DelegateRequestBehaviour",
-    "fleetmanager_name": "fleetmanager",
-    "fleetmanager_password": "fleetmanager_passwd",
-    "route_name": "route",
-    "route_password": "route_passwd",
-    "directory_name": "directory",
-    "directory_password": "directory_passwd",
-    "host": "localhost",
-    "xmpp_port": 5222,
-    "http_port": 9001,
-    "http_ip": "127.0.0.1",
-    "coords": [40.4167754, -3.7037902],
-    "zoom": 14
+    "stations": []
 }
