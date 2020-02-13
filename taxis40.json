@@ -16,7 +16,8 @@
                 -0.364888
             ],
             "password": "p_9+6TYWLm",
-            "name": "rachel78"
+            "name": "rachel78",
+            "velocity_factor": 0.3
         },
         {
             "speed": 2000,
@@ -27,7 +28,8 @@
                 -0.375514
             ],
             "password": "#GY9IWKnQ&",
-            "name": "qwalsh"
+            "name": "qwalsh",
+            "velocity_factor": 0.6
         },
         {
             "speed": 2000,
@@ -38,7 +40,8 @@
                 -0.403929
             ],
             "password": "uh1Uj4O7l*",
-            "name": "jamie43"
+            "name": "jamie43",
+            "velocity_factor": 1.1
         },
         {
             "speed": 2000,
@@ -49,7 +52,8 @@
                 -0.333435
             ],
             "password": ")3B+fL*jFq",
-            "name": "teresa66"
+            "name": "teresa66",
+            "velocity_factor": 1.01
         },
         {
             "speed": 2000,
@@ -60,7 +64,8 @@
                 -0.393588
             ],
             "password": "u!8Yvn*)AM",
-            "name": "latoya74"
+            "name": "latoya74",
+            "velocity_factor": 0.5
         },
         {
             "speed": 2000,
@@ -71,7 +76,8 @@
                 -0.385219
             ],
             "password": "_7sAg7NCv3",
-            "name": "ycollins"
+            "name": "ycollins",
+            "velocity_factor": 1.2
         },
         {
             "speed": 2000,
@@ -82,7 +88,8 @@
                 -0.364457
             ],
             "password": "!u1FRra8#%",
-            "name": "karihernandez"
+            "name": "karihernandez",
+            "velocity_factor": 0.4
         },
         {
             "speed": 2000,
@@ -93,7 +100,8 @@
                 -0.371656
             ],
             "password": "^s2jN#NqW@",
-            "name": "ykelly"
+            "name": "ykelly",
+            "velocity_factor": 0.8
         },
         {
             "speed": 2000,
@@ -104,7 +112,8 @@
                 -0.389729
             ],
             "password": "!c0RFynhi6",
-            "name": "rhunt"
+            "name": "rhunt",
+            "velocity_factor": 0.9
         },
         {
             "speed": 2000,
@@ -115,7 +124,8 @@
                 -0.406525
             ],
             "password": ")ZiGB9TbP3",
-            "name": "rgreen"
+            "name": "rgreen",
+            "velocity_factor": 0.7
         },
         {
             "speed": 2000,
@@ -126,7 +136,8 @@
                 -0.344981
             ],
             "password": "b0(+6Mhor7",
-            "name": "emmahamilton"
+            "name": "emmahamilton",
+            "velocity_factor": 1.3
         },
         {
             "speed": 2000,
@@ -137,7 +148,8 @@
                 -0.375651
             ],
             "password": "sRH5bSXz^&",
-            "name": "william26"
+            "name": "william26",
+            "velocity_factor": 0.6
         },
         {
             "speed": 2000,
@@ -148,7 +160,8 @@
                 -0.387657
             ],
             "password": "%Y!56Jn$Kg",
-            "name": "meaganwilliams"
+            "name": "meaganwilliams",
+            "velocity_factor": 0.8
         },
         {
             "speed": 2000,
@@ -159,7 +172,8 @@
                 -0.406452
             ],
             "password": "5W5JXeyE+G",
-            "name": "josewilliams"
+            "name": "josewilliams",
+            "velocity_factor": 0.5
         },
         {
             "speed": 2000,
@@ -170,7 +184,8 @@
                 -0.40221
             ],
             "password": "!7(cbX$(7c",
-            "name": "rodgersjessica"
+            "name": "rodgersjessica",
+            "velocity_factor": 1.2
         },
         {
             "speed": 2000,
@@ -181,7 +196,8 @@
                 -0.365454
             ],
             "password": "vL1G$vunC^",
-            "name": "danadavidson"
+            "name": "danadavidson",
+            "velocity_factor": 1.4
         },
         {
             "speed": 2000,
@@ -192,7 +208,8 @@
                 -0.395603
             ],
             "password": "l#8yV!u6_t",
-            "name": "scollins"
+            "name": "scollins",
+            "velocity_factor": 1.0
         },
         {
             "speed": 2000,
@@ -203,7 +220,8 @@
                 -0.347606
             ],
             "password": "I6#8Io*RAq",
-            "name": "levans"
+            "name": "levans",
+            "velocity_factor": 0.3
         },
         {
             "speed": 2000,
@@ -214,7 +232,8 @@
                 -0.390246
             ],
             "password": "LJh_L0Wx4o",
-            "name": "kathy10"
+            "name": "kathy10",
+            "velocity_factor": 1.03
         },
         {
             "speed": 2000,
@@ -225,7 +244,8 @@
                 -0.373862
             ],
             "password": "$3+CBG4nGO",
-            "name": "jeff99"
+            "name": "jeff99",
+            "velocity_factor": 0.6
         }
 
     ],
