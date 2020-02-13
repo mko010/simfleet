@@ -3,156 +3,551 @@
         {
             "password": "secret",
             "name": "fleetm1",
-            "fleet_type": "drone"
-        },
-        {
-            "password": "secret",
-            "name": "fleetm3",
-            "fleet_type": "food_delivery"
-        },
-        {
-            "password": "secret",
-            "name": "fleetm2",
-            "fleet_type": "drone"
+            "fleet_type": "taxi"
         }
     ],
     "transports": [
         {
             "speed": 2000,
             "fleet": "fleetm1@localhost",
-            "fleet_type": "drone",
+            "fleet_type": "taxi",
             "position": [
-                40.446163242,
-                -3.7075424194
+                39.487376,
+                -0.390246
             ],
-            "password": "secret",
-            "name": "drone1",
-            "velocity_factor": 0.7,
-            "rates": 3.0,
-            "trust": 3.6666666667
+            "password": "p_9+6TYWLm",
+            "name": "rachel78",
+            "velocity_factor": 0.3,
+            "rates": 11.0,
+            "trust": 3.1818181818
         },
         {
             "speed": 2000,
             "fleet": "fleetm1@localhost",
-            "fleet_type": "drone",
+            "fleet_type": "taxi",
             "position": [
-                40.4068299938,
-                -3.6702919006
+                39.478,
+                -0.406634
             ],
-            "password": "secret",
-            "name": "drone2",
-            "velocity_factor": 0.9,
-            "rates": 5.0,
-            "trust": 3.4
-        },
-        {
-            "speed": 2000,
-            "fleet": "fleetm2@localhost",
-            "fleet_type": "drone",
-            "position": [
-                40.4300276322,
-                -3.6797332764
-            ],
-            "password": "secret",
-            "name": "drone3",
-            "velocity_factor": 1.2,
-            "rates": 6.0,
+            "password": "#GY9IWKnQ&",
+            "name": "qwalsh",
+            "velocity_factor": 0.6,
+            "rates": 18.0,
             "trust": 3.0
         },
         {
             "speed": 2000,
-            "fleet": "fleetm3@localhost",
-            "fleet_type": "food_delivery",
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
             "position": [
-                40.4578542394,
-                -3.7113189697
+                39.478,
+                -0.406634
             ],
-            "password": "secret",
-            "name": "bike1",
-            "velocity_factor": 0.8,
-            "rates": 3.0,
-            "trust": 3.6666666667
+            "password": "uh1Uj4O7l*",
+            "name": "jamie43",
+            "velocity_factor": 1.1,
+            "rates": 15.0,
+            "trust": 3.1333333333
         },
         {
             "speed": 2000,
-            "fleet": "fleetm3@localhost",
-            "fleet_type": "food_delivery",
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
             "position": [
-                40.4585726142,
-                -3.6804199219
+                39.495492,
+                -0.403545
             ],
-            "password": "secret",
-            "name": "bike2",
+            "password": ")3B+fL*jFq",
+            "name": "teresa66",
+            "velocity_factor": 1.01,
+            "rates": 16.0,
+            "trust": 3.125
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.4809,
+                -0.373862
+            ],
+            "password": "u!8Yvn*)AM",
+            "name": "latoya74",
+            "velocity_factor": 0.5,
+            "rates": 20.0,
+            "trust": 3.05
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.46709,
+                -0.391201
+            ],
+            "password": "_7sAg7NCv3",
+            "name": "ycollins",
+            "velocity_factor": 1.2,
+            "rates": 22.0,
+            "trust": 3.0909090909
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.478479,
+                -0.364457
+            ],
+            "password": "!u1FRra8#%",
+            "name": "karihernandez",
+            "velocity_factor": 0.4,
+            "rates": 18.0,
+            "trust": 3.1111111111
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.482139,
+                -0.370847
+            ],
+            "password": "^s2jN#NqW@",
+            "name": "ykelly",
+            "velocity_factor": 0.8,
+            "rates": 23.0,
+            "trust": 3.0869565217
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.478891,
+                -0.361427
+            ],
+            "password": "!c0RFynhi6",
+            "name": "rhunt",
+            "velocity_factor": 0.9,
+            "rates": 23.0,
+            "trust": 3.0869565217
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.470159,
+                -0.335085
+            ],
+            "password": ")ZiGB9TbP3",
+            "name": "rgreen",
+            "velocity_factor": 0.7,
+            "rates": 22.0,
+            "trust": 3.0909090909
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.470336,
+                -0.371378
+            ],
+            "password": "b0(+6Mhor7",
+            "name": "emmahamilton",
             "velocity_factor": 1.3,
-            "rates": 6.0,
-            "trust": 3.3333333333
+            "rates": 21.0,
+            "trust": 3.0952380952
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.449257,
+                -0.389647
+            ],
+            "password": "sRH5bSXz^&",
+            "name": "william26",
+            "velocity_factor": 0.6,
+            "rates": 19.0,
+            "trust": 3.1052631579
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.463356,
+                -0.376463
+            ],
+            "password": "%Y!56Jn$Kg",
+            "name": "meaganwilliams",
+            "velocity_factor": 0.8,
+            "rates": 19.0,
+            "trust": 3.1052631579
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.466394,
+                -0.324807
+            ],
+            "password": "5W5JXeyE+G",
+            "name": "josewilliams",
+            "velocity_factor": 0.5,
+            "rates": 20.0,
+            "trust": 3.0
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.503374,
+                -0.426062
+            ],
+            "password": "!7(cbX$(7c",
+            "name": "rodgersjessica",
+            "velocity_factor": 1.2,
+            "rates": 23.0,
+            "trust": 3.0869565217
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.462618,
+                -0.364888
+            ],
+            "password": "vL1G$vunC^",
+            "name": "danadavidson",
+            "velocity_factor": 1.4,
+            "rates": 23.0,
+            "trust": 3.0869565217
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.49529,
+                -0.401478
+            ],
+            "password": "l#8yV!u6_t",
+            "name": "scollins",
+            "velocity_factor": 1.0,
+            "rates": 22.0,
+            "trust": 3.1818181818
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.487376,
+                -0.390246
+            ],
+            "password": "I6#8Io*RAq",
+            "name": "levans",
+            "velocity_factor": 0.3,
+            "rates": 18.0,
+            "trust": 3.0555555556
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.464109,
+                -0.380838
+            ],
+            "password": "LJh_L0Wx4o",
+            "name": "kathy10",
+            "velocity_factor": 1.03,
+            "rates": 22.0,
+            "trust": 3.0909090909
+        },
+        {
+            "speed": 2000,
+            "fleet": "fleetm1@localhost",
+            "fleet_type": "taxi",
+            "position": [
+                39.452221,
+                -0.347606
+            ],
+            "password": "$3+CBG4nGO",
+            "name": "jeff99",
+            "velocity_factor": 0.6,
+            "rates": 22.0,
+            "trust": 3.0909090909
         }
     ],
     "customers": [
         {
             "destination": [
-                40.446163242,
-                -3.7075424194
+                39.466394,
+                -0.324807
             ],
             "position": [
-                40.4517150865,
-                -3.6775016785
+                39.501382,
+                -0.418753
             ],
-            "password": "secret",
-            "name": "c1",
-            "fleet_type": "drone"
+            "password": "N)k76BNqp7",
+            "name": "hbrown",
+            "fleet_type": "taxi"
         },
         {
             "destination": [
-                40.4068299938,
-                -3.6702919006
+                39.46709,
+                -0.391201
             ],
             "position": [
-                40.4308769714,
-                -3.7162971497
+                39.460568,
+                -0.352529
             ],
-            "password": "secret",
-            "name": "c2",
-            "fleet_type": "drone"
+            "password": "7FFe&cQb&%",
+            "name": "ryanlang",
+            "fleet_type": "taxi"
         },
         {
             "destination": [
-                40.4300276322,
-                -3.6797332764
+                39.452221,
+                -0.347606
             ],
             "position": [
-                40.4575930103,
-                -3.6640262604
+                39.469548,
+                -0.349794
             ],
-            "password": "secret",
-            "name": "c3",
-            "fleet_type": "drone"
+            "password": "(*LR65Vb(!",
+            "name": "lwashington",
+            "fleet_type": "taxi"
         },
         {
             "destination": [
-                40.4578542394,
-                -3.7113189697
+                39.503374,
+                -0.426062
             ],
             "position": [
-                40.4400883455,
-                -3.6808490753
+                39.471537,
+                -0.379645
             ],
-            "password": "secret",
-            "name": "f1",
-            "fleet_type": "food_delivery"
+            "password": "*00Dxi6drh",
+            "name": "thomas91",
+            "fleet_type": "taxi"
         },
         {
             "destination": [
-                40.4585726142,
-                -3.6804199219
+                39.482139,
+                -0.370847
             ],
             "position": [
-                40.4097709822,
-                -3.6928653717
+                39.467605,
+                -0.341979
             ],
-            "password": "secret",
-            "name": "f2",
-            "fleet_type": "food_delivery"
+            "password": "*8kC+dFfvb",
+            "name": "flynnleslie",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.462618,
+                -0.364888
+            ],
+            "position": [
+                39.45743,
+                -0.375645
+            ],
+            "password": "(hT3Ql!jH5",
+            "name": "christinashaffer",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.4809,
+                -0.373862
+            ],
+            "position": [
+                39.480932,
+                -0.328096
+            ],
+            "password": "3bS!T6Haab",
+            "name": "summersjames",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.471777,
+                -0.353744
+            ],
+            "position": [
+                39.469824,
+                -0.388839
+            ],
+            "password": "C8j1CRQen+",
+            "name": "lucaskristina",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.478479,
+                -0.364457
+            ],
+            "position": [
+                39.497483,
+                -0.394829
+            ],
+            "password": "+hGrVIA*H2",
+            "name": "bautistaamber",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.495492,
+                -0.403545
+            ],
+            "position": [
+                39.471751,
+                -0.368367
+            ],
+            "password": "*EA2sK3n8&",
+            "name": "matthewcampos",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.463356,
+                -0.376463
+            ],
+            "position": [
+                39.455856,
+                -0.34686
+            ],
+            "password": "&ISGW@A2s7",
+            "name": "michaelstewart",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.464109,
+                -0.380838
+            ],
+            "position": [
+                39.483119,
+                -0.392008
+            ],
+            "password": "G0U6wpt6(1",
+            "name": "angela10",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.487376,
+                -0.390246
+            ],
+            "position": [
+                39.479442,
+                -0.3911
+            ],
+            "password": "+3dQ9TE+Rh",
+            "name": "juliegarcia",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.470159,
+                -0.335085
+            ],
+            "position": [
+                39.48017,
+                -0.391623
+            ],
+            "password": "HpWG3$Xy&4",
+            "name": "devin17",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.49529,
+                -0.401478
+            ],
+            "position": [
+                39.461327,
+                -0.361839
+            ],
+            "password": "^8hjbmOtdD",
+            "name": "haynespaul",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.478891,
+                -0.361427
+            ],
+            "position": [
+                39.467213,
+                -0.407743
+            ],
+            "password": "+UE8L&+h_j",
+            "name": "joelhughes",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.487376,
+                -0.390246
+            ],
+            "position": [
+                39.479573,
+                -0.376677
+            ],
+            "password": "5kRUCRJt)7",
+            "name": "rjensen",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.449257,
+                -0.389647
+            ],
+            "position": [
+                39.469254,
+                -0.371688
+            ],
+            "password": "%m)0kL1f(t",
+            "name": "traceymunoz",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.470336,
+                -0.371378
+            ],
+            "position": [
+                39.474858,
+                -0.375468
+            ],
+            "password": "b3hYR#Y0%!",
+            "name": "fmorgan",
+            "fleet_type": "taxi"
+        },
+        {
+            "destination": [
+                39.478,
+                -0.406634
+            ],
+            "position": [
+                39.490345,
+                -0.40001
+            ],
+            "password": "Iv3XJJiT(_",
+            "name": "misty45",
+            "fleet_type": "taxi"
         }
     ],
     "stations": [],
